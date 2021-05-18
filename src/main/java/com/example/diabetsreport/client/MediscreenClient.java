@@ -24,15 +24,6 @@ public class MediscreenClient {
         this.mediscreenServerUrl = mediscreenServerUrl;
     }
 
-    public List<PatientDto> getPatients() {
-        RestTemplate restTemplate = new RestTemplate();
-
-        String address = "http://" + mediscreenServerUrl + ":8081/patient";
-        ResponseEntity<PatientDto[]> response = restTemplate.getForEntity(address, PatientDto[].class);
-
-        return Arrays.asList(response.getBody());
-   }
-
     public PatientDto findById(Long id) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -40,7 +31,6 @@ public class MediscreenClient {
         ResponseEntity<PatientDto> response = restTemplate.getForEntity(address , PatientDto.class) ;
 
         return response.getBody();
-
     }
 
      //créer pour satisfaire les exemples de client

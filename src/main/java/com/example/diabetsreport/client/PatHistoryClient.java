@@ -24,16 +24,6 @@ public class PatHistoryClient {
         this.pathistoryServerUrl = pathistoryServerUrl;
     }
 
-    public List<PatHistoryDto> getPatHistory() {
-        RestTemplate restTemplate = new RestTemplate();
-
-        String address = "http://" + pathistoryServerUrl + ":8082/patHistory";
-
-        ResponseEntity<PatHistoryDto[]> response = restTemplate.getForEntity(address, PatHistoryDto[].class);
-
-        return Arrays.asList(response.getBody());
-    }
-
     public List<PatHistoryDto> findAllByPatId( Long patId) {
         RestTemplate restTemplate = new RestTemplate();
 
@@ -43,16 +33,5 @@ public class PatHistoryClient {
 
         return Arrays.asList(response.getBody());
 
-    }
-
-    //on peut pas utiliser sinn les fiches seront les mêmes pour tous les patients a même nom
-    public List<PatHistoryDto> findByFamily(String family) {
-        RestTemplate restTemplate = new RestTemplate();
-
-        String address = "http://" + pathistoryServerUrl + ":8082/patHistory/family/" + family;
-
-        ResponseEntity<PatHistoryDto[]> response = restTemplate.getForEntity(address, PatHistoryDto[].class);
-
-        return Arrays.asList(response.getBody());
     }
 }

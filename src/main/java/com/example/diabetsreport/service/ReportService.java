@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 
@@ -31,7 +31,6 @@ public class ReportService {
         PatientDto patient = mediscreenClient.findById(patId);
         List<PatHistoryDto> patHistories = patHistoryClient.findAllByPatId(patId);
         Integer age = calculateAge(patient.getDob());
-
         Long counter = 0L;
 
         for (PatHistoryDto patHistoryDto : patHistories) {
@@ -62,7 +61,10 @@ public class ReportService {
         return String.format(
                 "Patient: %s %s (age %d) diabetes assessment is: %s", patient.getGiven(), patient.getFamily(), age, assessment);
     }
-///////
+ /*
+    méthode qui prend en param le familyName et retourner une liste de string ayant le nom,le prénom, l'age de chaque patient et son assessement(état de risque)
+    Cet état prend en considération l'age, le sex ainsi que le nombre de facteurs declanchants
+     */
 
     public List<String> getFeedbackWithFamilyName(String family) {
 
@@ -75,16 +77,7 @@ public class ReportService {
 
         return result;
 
-        /*
-        return mediscreenClient.findByFamily(family)
-                .stream()
-                .map(person -> person.getId())
-                .map(id -> getFeedback(id))
-                .collect(Collectors.toList());
-
-         */
     }
-
 
     /*
     méthode pour calculer l'age du patient à partir de sa date d'anniversaire(parsée du String en date) puis calculée
